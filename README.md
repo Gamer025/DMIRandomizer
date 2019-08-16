@@ -9,4 +9,4 @@ This can be done either in one file itself or you can insert sprites from file A
 To use this tool you need https://github.com/exiftool/exiftool and set "exiftool" accordingly.
 
 Currently exiftool imports the zTXt metadata at the end of the file resulting in the output .dmi file to be unreadable by Byond.
-So after mixing a DMI you need to move zTXt above IDAT wit the program TweakPNG http://entropymine.com/jason/tweakpng/
+So after mixing a DMI you need to move zTXt above IDAT with the program TweakPNG http://entropymine.com/jason/tweakpng/
