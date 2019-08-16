@@ -128,23 +128,19 @@ namespace DMIRandomizer
             int height = 0;
             int yRect = 0;
             int fileSize = 0; //Amount of sprites
-            int xRows = 0; //Amount of rows on x (height)
-            int yRows = 0;//Amount of rows on y (width)
+            int xRows = 0; //Amount of rows on x (width)
+            int yRows = 0;//Amount of rows on y (height)
             int lastIcons = 0; //Amount of sprites in the last row
-            //bool changedDMI = false;
             Bitmap myBitmap = new Bitmap(DMIPath);
             RectangleF sourceRect = new RectangleF(0, 0, 32, 32);
             RectangleF targetRect = new RectangleF(0, 0, 32, 32);
             System.Drawing.Imaging.PixelFormat format = myBitmap.PixelFormat;
 
+            //Set important data from the DMI metadata
             DMIMetadata localDmiData = dmidata(DMIPath);
             width = localDmiData.Width;
             height = localDmiData.Height;
             fileSize = localDmiData.SpriteCount;
-
-            //System.IO.File.Move(DMIPath, DMIPath.Replace(".dmi",".png"));
-            //DMIPath = DMIPath.Replace(".dmi", ".png");
-      
 
             xRows = myBitmap.Width / width; //Hight of the dmi file in pixel divided by the height of a single sprite, results in amount of sprites horizontally
             yRows = myBitmap.Height / height; //Hight of the dmi file in pixel divided by the height of a single sprite, results in amount of sprites vertically
@@ -152,33 +148,25 @@ namespace DMIRandomizer
 
             for (int i = 0; i < fileSize * multiplier; i++)
             {
-
-
                 yRect = y(yRows);
                 sourceRect.Y = yRect;
-                //System.Threading.Thread.Sleep(10);
                 if (yRect / 32 == yRows -1) //If x is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
                     sourceRect.X = x(xRows, lastIcons, true);
                 else
                     sourceRect.X = x(xRows, lastIcons, false);
 
-                //System.Threading.Thread.Sleep(10);
 
                 yRect = y(yRows);
                 targetRect.Y = yRect;
-                //System.Threading.Thread.Sleep(10);
                 if (yRect / 32 == yRows -1) //If x is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
                     targetRect.X = x(xRows, lastIcons, true);
                 else
                     targetRect.X = x(xRows, lastIcons, false);
 
-                //Bitmap cloneBitmap = myBitmap.Clone(cloneRect, format);
-                //ImageBox.Source = BitmapToImageSource(cloneBitmap);
                 using (Graphics grD = Graphics.FromImage(myBitmap))
                 {
                     grD.DrawImage(myBitmap, targetRect, sourceRect, GraphicsUnit.Pixel);
                 }
-                //cloneBitmap.Dispose();
 
             }
             myBitmap.Save(DMIPath + ".new");
@@ -189,9 +177,6 @@ namespace DMIRandomizer
             process.WaitForExit();
             File.Delete(DMIPath + ".old");
             File.Move(DMIPath + ".new", DMIPath);
-
-
-            //System.IO.File.Move(DMIPath, DMIPath.Replace(".png", ".dmi"));
         }
 
         void RandomizeDMI (string sourceDMI, string targetDMI)
@@ -200,16 +185,16 @@ namespace DMIRandomizer
             int sourceHeight = 0;
             int sourceYRect = 0;
             int sourceFileSize = 0; //Amount of sprites
-            int sourceXRows = 0; //Amount of rows on x (height)
-            int sourceYRows = 0;//Amount of rows on y (width)
+            int sourceXRows = 0; //Amount of rows on x (width)
+            int sourceYRows = 0;//Amount of rows on y (height)
             int sourceLastIcons = 0; //Amount of sprites in the last row
 
             int targetWidth = 0;
             int targetHeight = 0;
             int targetYRect = 0;
             int targetFileSize = 0; //Amount of sprites
-            int targetXRows = 0; //Amount of rows on x (height)
-            int targetYRows = 0;//Amount of rows on y (width)
+            int targetXRows = 0; //Amount of rows on x (width)
+            int targetYRows = 0;//Amount of rows on y (height)
             int targetLastIcons = 0; //Amount of sprites in the last row
 
             Bitmap sourceBitmap = new Bitmap(sourceDMI);
@@ -217,6 +202,7 @@ namespace DMIRandomizer
             RectangleF sourceRect = new RectangleF(0, 0, 32, 32);
             RectangleF targetRect = new RectangleF(0, 0, 32, 32);
 
+            //Set important data from the DMI metadata
             DMIMetadata sourceLocalDmiData = dmidata(sourceDMI);
             sourceWidth = sourceLocalDmiData.Width;
             sourceHeight = sourceLocalDmiData.Height;
