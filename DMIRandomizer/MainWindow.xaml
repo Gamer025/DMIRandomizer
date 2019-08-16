@@ -1,0 +1,28 @@
+﻿<Window x:Class="DMIRandomizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DMIRandomizer"
+        mc:Ignorable="d"
+        Title="DMI Randomizer" Height="487.562" Width="550"
+		ResizeMode="NoResize">
+	<Grid>
+		<RadioButton x:Name="singleFile" Content="Single DMI file" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center" IsChecked="True"/>
+		<TextBox x:Name="DMIPath_Box" HorizontalAlignment="Left" Margin="20,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<Button x:Name="SelectFile_Button" Content="..." HorizontalAlignment="Left" Margin="455,40,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFile_Button_Click" />
+		<RadioButton x:Name="combineDMI" Content="Mix DMI in different DMI" HorizontalAlignment="Left" Margin="20,90,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center" IsChecked="False"/>
+		<TextBox x:Name="sourceDMIPath_Box" HorizontalAlignment="Left" Margin="20,120,0,0" TextWrapping="Wrap" Text="SourceFile" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<Button x:Name="SelectSourceFile_Button" Content="..." HorizontalAlignment="Left" Margin="455,120,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectSourceFile_Button_Click"  />
+		<TextBox x:Name="targetDMIPath_Box" HorizontalAlignment="Left" Margin="20,160,0,0" TextWrapping="Wrap" Text="TargetFile" VerticalAlignment="Top" Width="430"  Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<Button x:Name="SelectTargetFile_Button" Content="..." HorizontalAlignment="Left" Margin="455,160,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectTargetFile_Button_Click"/>
+		<RadioButton x:Name="multipleFiles" Content="Multiple DMI files in folder" HorizontalAlignment="Left" Margin="20,200,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center"/>
+		<TextBox x:Name="FolderPath_Box" HorizontalAlignment="Left" Margin="20,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<Button x:Name="SelectFolder_Button" Content="..." HorizontalAlignment="Left" Margin="455,225,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolder_Button_Click"/>
+		<Button x:Name="Randomize_Button" Content="Randomize!" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="36" FontWeight="Bold" Click="Randomize_Button_Click"/>
+		<Label Content="Options" HorizontalAlignment="Left" Margin="17,250,0,0" VerticalAlignment="Top" FontSize="18"/>
+		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="3" Margin="23,279,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
+		<Label Content="Shuffle Multiplier:" HorizontalAlignment="Left" Margin="22,290,0,0" VerticalAlignment="Top"/>
+		<TextBox x:Name="multiplier_textbox" HorizontalAlignment="Left"  Margin="130,295,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" PreviewTextInput="Multiplier_textbox_PreviewTextInput" MaxLength="5" />
+	</Grid>
+</Window>
