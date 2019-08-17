@@ -218,9 +218,9 @@ namespace DMIRandomizer
 
             int counter = 0;
             if (targetFileSize < sourceFileSize)
-                counter = targetFileSize;
+                counter = targetFileSize + Convert.ToInt32(0.1 *sourceFileSize); //Smaller file as basis of the amount of copy operations with 10% of the other files size added
             else
-                counter = sourceFileSize;
+                counter = sourceFileSize + Convert.ToInt32(0.1*targetFileSize); //This should result in a good amount of sprites being injected
 
 
                 for (int i = 0; i < counter * multiplier; i++)
@@ -261,10 +261,6 @@ namespace DMIRandomizer
         void RandomizeFolder (string folderPath)
         {
             List<string> allDMIs = System.IO.Directory.GetFiles(folderPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
-            //foreach (string DMIFile in allDMIs)
-            //{
-            //    Debug.WriteLine(DMIFile);
-            //}
 
             //Some blacklisting probably should load this stuff dynamically from a blacklist.txt
             allDMIs.Remove(folderPath+ "\\default_title.dmi");
