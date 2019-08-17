@@ -31,7 +31,6 @@ namespace DMIRandomizer
     public partial class MainWindow : Window
     {
 
-        public string FolderPath = "";
         Random rnd = new Random();
         double multiplier = 2;
 
@@ -46,6 +45,7 @@ namespace DMIRandomizer
             startInfo.FileName = "cmd.exe";
             startInfo.Arguments = "";
             startInfo.UseShellExecute = false;
+            startInfo.CreateNoWindow = true;
             process.StartInfo = startInfo;
         }
 
@@ -65,7 +65,6 @@ namespace DMIRandomizer
             {
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    FolderPath = dialog.SelectedPath;
                     FolderPath_Box.Text = dialog.SelectedPath;
                 }
             }
@@ -84,16 +83,12 @@ namespace DMIRandomizer
                     {
                         RandomizeDMI(DMIPath_Box.Text);
                     }
-                    else
-                    {
-
-                    }
 
                 }
             }
             else if (combineDMI.IsChecked == true)
             {
-                // Check if path is set
+                // Check if both paths are set
                 if (sourceDMIPath_Box.Text == "" || targetDMIPath_Box.Text == "")
                     MessageBox.Show("Please select both DMI files first");
                 else
@@ -102,19 +97,21 @@ namespace DMIRandomizer
                     {
                         RandomizeDMI(sourceDMIPath_Box.Text, targetDMIPath_Box.Text);
                     }
-                    else
-                    {
-
-                    }
                 }
             }
             else if (multipleFiles.IsChecked == true)
             {
                 //Check if path is set
-                if (FolderPath == "")
+                if (FolderPath_Box.Text == "")
                     MessageBox.Show("Please select a folder first");
                 else
-                    MessageBox.Show("Comming soon");
+                {
+                    if (ParseOptions())
+                    {
+                        RandomizeFolder(FolderPath_Box.Text);
+                    }
+                }
+
             }
             else
                 MessageBox.Show("WTF you broke it somehow");
@@ -261,10 +258,35 @@ namespace DMIRandomizer
             File.Move(targetDMI + ".new", targetDMI);
         }
 
+        void RandomizeFolder (string folderPath)
+        {
+            List<string> allDMIs = System.IO.Directory.GetFiles(folderPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
+            //foreach (string DMIFile in allDMIs)
+            //{
+            //    Debug.WriteLine(DMIFile);
+            //}
+
+            //Some blacklisting probably should load this stuff dynamically from a blacklist.txt
+            allDMIs.Remove(folderPath+ "\\default_title.dmi");
+            allDMIs.Remove(folderPath + "\\minimap.dmi");
+            allDMIs.Remove(folderPath + "\\misc\\largeui.dmi");
+
+            for (int i = 0; i < allDMIs.Count();)
+            {
+                string FileA = allDMIs[rnd.Next(0, allDMIs.Count())]; //File to which we want to take the sprites from
+                int FileBIndex = rnd.Next(0, allDMIs.Count()); //Store the index number of file B because this is the file we are gonna randomize, so we gotta remove it from the array afterwards
+                string FileB = allDMIs[FileBIndex]; // File in which we want to inject the sprites into
+
+                RandomizeDMI(FileA, FileB);
+                allDMIs.RemoveAt(FileBIndex);
+            }
+
+        }
+
         public DMIMetadata dmidata (string DMIPath)
         {
-            int width = 0;
-            int height = 0;
+            int width = 32;
+            int height = 32;
             int dirs = 0;
             int frames = 0;
             int SpriteCount = 0;
