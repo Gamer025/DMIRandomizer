@@ -273,7 +273,11 @@ namespace DMIRandomizer
                 int FileBIndex = rnd.Next(0, allDMIs.Count()); //Store the index number of file B because this is the file we are gonna randomize, so we gotta remove it from the array afterwards
                 string FileB = allDMIs[FileBIndex]; // File in which we want to inject the sprites into
 
-                RandomizeDMI(FileA, FileB);
+                if(rnd.Next(0, 100) <= ratio_Slider.Value) //Decide if we are either mixing one file into another one or if we a mixing the DMI itself
+                    RandomizeDMI(FileB);
+                else
+                    RandomizeDMI(FileA, FileB);
+
                 allDMIs.RemoveAt(FileBIndex);
             }
 
