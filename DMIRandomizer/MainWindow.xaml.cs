@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 using MetadataExtractor;
@@ -75,7 +66,7 @@ namespace DMIRandomizer
             if (singleFile.IsChecked == true)
             {
                 //Check if path is set
-                if (DMIPath_Box.Text == "")
+                if (DMIPath_Box.Text == "DMIFile")
                     MessageBox.Show("Please select a DMI file first");
                 else
                 {
@@ -89,7 +80,7 @@ namespace DMIRandomizer
             else if (combineDMI.IsChecked == true)
             {
                 // Check if both paths are set
-                if (sourceDMIPath_Box.Text == "" || targetDMIPath_Box.Text == "")
+                if (sourceDMIPath_Box.Text == "SourceFile" || targetDMIPath_Box.Text == "SourcePath")
                     MessageBox.Show("Please select both DMI files first");
                 else
                 {
@@ -102,7 +93,7 @@ namespace DMIRandomizer
             else if (multipleFiles.IsChecked == true)
             {
                 //Check if path is set
-                if (FolderPath_Box.Text == "")
+                if (FolderPath_Box.Text == "Folder")
                     MessageBox.Show("Please select a folder first");
                 else
                 {
