@@ -134,26 +134,37 @@ namespace DMIRandomizer
             yRows = myBitmap.Height / height; //Hight of the dmi file in pixel divided by the height of a single sprite, results in amount of sprites vertically
             lastIcons = fileSize - (xRows  * (yRows - 1));
 
+            sourceRect.Width = targetRect.Width = width;
+            sourceRect.Height = targetRect.Height =height;
+
+
             for (int i = 0; i < fileSize * multiplier; i++)
             {
-                yRect = y(yRows);
+                yRect = y(yRows, height);
                 sourceRect.Y = yRect;
-                if (yRect / 32 == yRows -1) //If x is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
-                    sourceRect.X = x(xRows, lastIcons, true);
+                if (yRect / height == yRows -1) //If x is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
+                    sourceRect.X = x(xRows, lastIcons, true, width);
                 else
-                    sourceRect.X = x(xRows, lastIcons, false);
+                    sourceRect.X = x(xRows, lastIcons, false, width);
 
 
-                yRect = y(yRows);
+                yRect = y(yRows, height);
                 targetRect.Y = yRect;
-                if (yRect / 32 == yRows -1) //If x is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
-                    targetRect.X = x(xRows, lastIcons, true);
+                if (yRect / width == yRows -1) //If x is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
+                    targetRect.X = x(xRows, lastIcons, true, width);
                 else
-                    targetRect.X = x(xRows, lastIcons, false);
+                    targetRect.X = x(xRows, lastIcons, false, width);
 
-                using (Graphics grD = Graphics.FromImage(myBitmap))
+                try
                 {
-                    grD.DrawImage(myBitmap, targetRect, sourceRect, GraphicsUnit.Pixel);
+                    using (Graphics grD = Graphics.FromImage(myBitmap))
+                    {
+                        grD.DrawImage(myBitmap, targetRect, sourceRect, GraphicsUnit.Pixel);
+                    }
+                }
+                catch
+                {
+                    //Sometimes this just breaks
                 }
 
             }
@@ -213,31 +224,50 @@ namespace DMIRandomizer
             else
                 counter = sourceFileSize + Convert.ToInt32(0.1*targetFileSize); //This should result in a good amount of sprites being injected
 
+            sourceRect.Width = sourceWidth;
+            sourceRect.Height = sourceHeight;
+            if (stretch_Checkbox.IsChecked == true)
+            {
+                targetRect.Width = targetWidth;
+                targetRect.Height = targetHeight;
+            }
+            else
+            {
+                targetRect.Width = sourceWidth;
+                targetRect.Height = sourceHeight;
+            }
 
-                for (int i = 0; i < counter * multiplier; i++)
+            for (int i = 0; i < counter * multiplier; i++)
+            {
+
+
+                sourceYRect = y(sourceYRows, sourceHeight);
+                sourceRect.Y = sourceYRect;
+                if (sourceYRect / sourceHeight == sourceYRows - 1) //If y is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
+                    sourceRect.X = x(sourceXRows, sourceLastIcons, true, sourceWidth);
+                else
+                    sourceRect.X = x(sourceXRows, sourceLastIcons, false, sourceWidth);
+
+
+                targetYRect = y(targetYRows, sourceHeight);
+                targetRect.Y = targetYRect;
+                if (targetYRect / targetHeight == targetYRows - 1) //If y is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
+                    targetRect.X = x(targetXRows, targetLastIcons, true, sourceWidth);
+                else
+                    targetRect.X = x(targetXRows, targetLastIcons, false, sourceWidth);
+
+                try
                 {
-
-
-                    sourceYRect = y(sourceYRows);
-                    sourceRect.Y = sourceYRect;
-                    if (sourceYRect / 32 == sourceYRows - 1) //If y is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
-                        sourceRect.X = x(sourceXRows, sourceLastIcons, true);
-                    else
-                        sourceRect.X = x(sourceXRows, sourceLastIcons, false);
-
-
-                    targetYRect = y(targetYRows);
-                    targetRect.Y = targetYRect;
-                    if (targetYRect / 32 == targetYRows - 1) //If y is the amount of rows aka the last row we need to limit y because the last row probably doesn't have the max amount of items
-                        targetRect.X = x(targetXRows, targetLastIcons, true);
-                    else
-                        targetRect.X = x(targetXRows, targetLastIcons, false);
-
                     using (Graphics grD = Graphics.FromImage(targetBitmap))
                     {
                         grD.DrawImage(sourceBitmap, targetRect, sourceRect, GraphicsUnit.Pixel);
                     }
                 }
+                catch
+                {
+                    //Sometimes this just breaks
+                }
+            }
             targetBitmap.Save(targetDMI + ".new");
             sourceBitmap.Dispose();
             targetBitmap.Dispose();
@@ -253,10 +283,6 @@ namespace DMIRandomizer
         {
             List<string> allDMIs = System.IO.Directory.GetFiles(folderPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
 
-            //Some blacklisting probably should load this stuff dynamically from a blacklist.txt
-            allDMIs.Remove(folderPath+ "\\default_title.dmi");
-            allDMIs.Remove(folderPath + "\\minimap.dmi");
-            allDMIs.Remove(folderPath + "\\misc\\largeui.dmi");
 
             for (int i = 0; i < allDMIs.Count();)
             {
@@ -327,7 +353,7 @@ namespace DMIRandomizer
             return new DMIMetadata(width,height,SpriteCount);
         }
 
-        int x (int rows, int lastIcons, bool lastrow)
+        int x (int rows, int lastIcons, bool lastrow, int width)
         {
             int x = 0;
             if (lastrow)
@@ -335,15 +361,15 @@ namespace DMIRandomizer
             else
                 x = rnd.Next(0, rows);
 
-            x = x * 32;
+            x = x * width;
             return x;
         }
-        int y(int rows)
+        int y(int rows, int height)
         {
             
             int x = rnd.Next(0, rows);
 
-            x = x * 32;
+            x = x * height;
             return x;
         }
 
