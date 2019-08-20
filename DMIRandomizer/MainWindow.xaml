@@ -24,6 +24,7 @@
 		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="3" Margin="23,279,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
 		<Label Content="Shuffle Multiplier:" HorizontalAlignment="Left" Margin="22,290,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="multiplier_textbox" HorizontalAlignment="Left"  Margin="130,295,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" PreviewTextInput="Multiplier_textbox_PreviewTextInput" MaxLength="5" />
+		<CheckBox x:Name="stretch_Checkbox" Content="Stretch/Compress sprites if needed (Mixing)" HorizontalAlignment="Left" Margin="190,295,0,0" VerticalAlignment="Top" IsChecked="True"/>
 		<Label Content="Folder options" HorizontalAlignment="Left" Margin="17,330,0,0" VerticalAlignment="Top" FontSize="18"/>
 		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="2" Margin="23,361,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
 		<Label Content="Percentage of self mixing" HorizontalAlignment="Left" Margin="22,375,0,0" VerticalAlignment="Top"/>
