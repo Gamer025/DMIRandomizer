@@ -22,7 +22,7 @@ This mode will take one DMI file and shuffle the sprites in the file itself arou
 ### Mix DMI in different DMI
 This mode will take two DMI files and will copy random sprites from the SourceFile into random locations of the TargetFile.
 
-## Multiple DMI files in folder
+### Multiple DMI files in folder
 This options takes the path of a folder and will randomly choose two DMI files in the folder or any of it subfolders.
 File A will then be mixed into file B like the "Mix DMI in different DMI" option does.
 Its also possible to only mix files them self, see the option "Percentage of self mixing" for more information
