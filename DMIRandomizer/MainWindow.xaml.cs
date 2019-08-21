@@ -25,7 +25,7 @@ namespace DMIRandomizer
         Random rnd = new Random();
         double multiplier = 2;
 
-        string exiftool = @"D:\Dateien\Downloads\exiftool.exe";
+        string exiftool = System.IO.Directory.GetCurrentDirectory()+"\\exiftool.exe";
         System.Diagnostics.Process process = new System.Diagnostics.Process();
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 
@@ -171,7 +171,7 @@ namespace DMIRandomizer
             myBitmap.Save(DMIPath + ".new");
             myBitmap.Dispose();
             File.Move(DMIPath, DMIPath + ".old");
-            process.StartInfo.Arguments = "/c "+exiftool + " -overwrite_original -z -TagsFromFile " + DMIPath + ".old" + " -Description " + DMIPath + ".new";
+            process.StartInfo.Arguments = "/S /c \"\""+exiftool + "\" -overwrite_original -z -TagsFromFile \"" + DMIPath + ".old\"" + " -Description \"" + DMIPath + ".new\"\"";
             process.Start();
             process.WaitForExit();
             File.Delete(DMIPath + ".old");
@@ -272,7 +272,7 @@ namespace DMIRandomizer
             sourceBitmap.Dispose();
             targetBitmap.Dispose();
             File.Move(targetDMI, targetDMI + ".old");
-            process.StartInfo.Arguments = "/c "+exiftool +" -overwrite_original -z -TagsFromFile " + targetDMI+ ".old" + " -Description "+ targetDMI + ".new";
+            process.StartInfo.Arguments = "/S /c \"\""+exiftool +"\" -overwrite_original -z -TagsFromFile \"" + targetDMI+ ".old\"" + " -Description \"" + targetDMI + ".new\"\"";
             process.Start();
             process.WaitForExit();
             File.Delete(targetDMI + ".old");
