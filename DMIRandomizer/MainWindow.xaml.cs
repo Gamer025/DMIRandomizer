@@ -38,6 +38,11 @@ namespace DMIRandomizer
             startInfo.UseShellExecute = false;
             startInfo.CreateNoWindow = true;
             process.StartInfo = startInfo;
+            if (!File.Exists(exiftool))
+            {
+                MessageBox.Show("Please place exiftool.exe (at least version 11.63) in the same directory as DMIRandomizer.exe");
+                Environment.Exit(2);
+            }
         }
 
         private void SelectFile_Button_Click(object sender, RoutedEventArgs e)
