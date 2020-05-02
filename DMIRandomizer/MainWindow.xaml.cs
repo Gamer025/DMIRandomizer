@@ -45,26 +45,6 @@ namespace DMIRandomizer
             }
         }
 
-        private void SelectFile_Button_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "What does DMI even stand for|*.dmi";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                DMIPath_Box.Text = openFileDialog.FileName;
-            }
-        }
-
-        private void SelectFolder_Button_Click(object sender, RoutedEventArgs e)
-        {
-            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
-            {
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    FolderPath_Box.Text = dialog.SelectedPath;
-                }
-            }
-        }
 
         private void Randomize_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -108,6 +88,18 @@ namespace DMIRandomizer
                     }
                 }
 
+            }
+            else if (multiple_folders.IsChecked == true)
+            {
+                if (FolderAPath_Box.Text == "Source Folder" || FolderBPath_Box.Text == "Target Folder")
+                    MessageBox.Show("Please select both folders first");
+                else
+                {
+                    if (ParseOptions())
+                    {
+                        RandomizeFolder(FolderAPath_Box.Text, FolderBPath_Box.Text);
+                    }
+                }
             }
             else
                 MessageBox.Show("WTF you broke it somehow");
@@ -286,21 +278,52 @@ namespace DMIRandomizer
 
         void RandomizeFolder (string folderPath)
         {
-            List<string> allDMIs = System.IO.Directory.GetFiles(folderPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
-
-
-            for (int i = 0; i < allDMIs.Count();)
+            List<string> allTextures = System.IO.Directory.GetFiles(folderPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
+            if (use_PNGs.IsChecked == true)
             {
-                string FileA = allDMIs[rnd.Next(0, allDMIs.Count())]; //File to which we want to take the sprites from
-                int FileBIndex = rnd.Next(0, allDMIs.Count()); //Store the index number of file B because this is the file we are gonna randomize, so we gotta remove it from the array afterwards
-                string FileB = allDMIs[FileBIndex]; // File in which we want to inject the sprites into
+                allTextures.AddRange(System.IO.Directory.GetFiles(folderPath, "*.png", SearchOption.AllDirectories).ToList<string>());
+            }
+
+
+            for (int i = 0; i < allTextures.Count();)
+            {
+                string FileA = allTextures[rnd.Next(0, allTextures.Count())]; //File to which we want to take the sprites from
+                int FileBIndex = rnd.Next(0, allTextures.Count()); //Store the index number of file B because this is the file we are gonna randomize, so we gotta remove it from the array afterwards
+                string FileB = allTextures[FileBIndex]; // File in which we want to inject the sprites into
 
                 if(rnd.Next(0, 100) <= ratio_Slider.Value) //Decide if we are either mixing one file into another one or if we a mixing the DMI itself
                     RandomizeDMI(FileB);
                 else
                     RandomizeDMI(FileA, FileB);
 
-                allDMIs.RemoveAt(FileBIndex);
+                allTextures.RemoveAt(FileBIndex);
+            }
+
+        }
+
+        void RandomizeFolder(string folderAPath, string folderBPath)
+        {
+            List<string> allTexturesA = System.IO.Directory.GetFiles(folderAPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
+            if (use_PNGs.IsChecked == true)
+            {
+                allTexturesA.AddRange(System.IO.Directory.GetFiles(folderAPath, "*.png", SearchOption.AllDirectories).ToList<string>());
+            }
+            List<string> allTexturesB = System.IO.Directory.GetFiles(folderBPath, "*.dmi", SearchOption.AllDirectories).ToList<string>();
+            if (use_PNGs.IsChecked == true)
+            {
+                allTexturesB.AddRange(System.IO.Directory.GetFiles(folderBPath, "*.png", SearchOption.AllDirectories).ToList<string>());
+            }
+
+
+            for (int i = 0; i < allTexturesA.Count();)
+            {
+                string FileA = allTexturesA[rnd.Next(0, allTexturesA.Count())]; //File to which we want to take the sprites from
+                int FileBIndex = rnd.Next(0, allTexturesB.Count()); //Store the index number of file B because this is the file we are gonna randomize, so we gotta remove it from the array afterwards
+                string FileB = allTexturesB[FileBIndex]; // File in which we want to inject the sprites into
+
+                RandomizeDMI(FileA, FileB);
+
+                allTexturesB.RemoveAt(FileBIndex);
             }
 
         }
@@ -355,6 +378,15 @@ namespace DMIRandomizer
                     }
 
                 }
+
+            if (DMIPath.EndsWith(".png")) //If file is a png (aka has no Byond metadata) calculate the sprite count from the image pixels amount (height * widht) divided by the entered size in the dialog
+            {
+                var img = Image.FromFile(DMIPath);
+                SpriteCount = (img.Width * img.Height) / (Convert.ToInt32(PNG_size.Text)* Convert.ToInt32(PNG_size.Text));
+                img.Dispose();
+                width = height = Convert.ToInt32(PNG_size.Text);
+            }
+
             return new DMIMetadata(width,height,SpriteCount);
         }
 
@@ -396,10 +428,22 @@ namespace DMIRandomizer
             return optionsOK;
         }
 
+        #region OpenDialogeButtons
+
+        private void SelectFile_Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "What does DMI even stand for|*.dmi|PNG (experimental)|*.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                DMIPath_Box.Text = openFileDialog.FileName;
+            }
+        }
+
         private void SelectSourceFile_Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "What does DMI even stand for|*.dmi";
+            openFileDialog.Filter = "What does DMI even stand for|*.dmi|PNG (experimental)|*.png";
             if (openFileDialog.ShowDialog() == true)
             {
                 sourceDMIPath_Box.Text = openFileDialog.FileName;
@@ -409,11 +453,46 @@ namespace DMIRandomizer
         private void SelectTargetFile_Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "What does DMI even stand for|*.dmi";
+            openFileDialog.Filter = "What does DMI even stand for|*.dmi|PNG (experimental)|*.png";
             if (openFileDialog.ShowDialog() == true)
             {
                 targetDMIPath_Box.Text = openFileDialog.FileName;
             }
         }
+
+        private void SelectFolder_Button_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    FolderPath_Box.Text = dialog.SelectedPath;
+                }
+            }
+        }
+
+        private void SelectFolderA_Button_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    FolderAPath_Box.Text = dialog.SelectedPath;
+                }
+            }
+        }
+
+        private void SelectFolderB_Button_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    FolderBPath_Box.Text = dialog.SelectedPath;
+                }
+            }
+        }
+
+        #endregion
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DMIRandomizer"
         mc:Ignorable="d"
-        Title="DMI Randomizer" Height="539.562" Width="550"
+        Title="DMI Randomizer" Height="650" Width="550"
 		ResizeMode="NoResize">
 	<Grid>
 		<RadioButton x:Name="singleFile" Content="Single DMI file" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center" IsChecked="True"/>
@@ -20,15 +20,23 @@
 		<TextBox x:Name="FolderPath_Box" HorizontalAlignment="Left" Margin="20,225,0,0" TextWrapping="Wrap" Text="Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
 		<Button x:Name="SelectFolder_Button" Content="..." HorizontalAlignment="Left" Margin="455,225,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolder_Button_Click"/>
 		<Button x:Name="Randomize_Button" Content="Randomize!" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="36" FontWeight="Bold" Click="Randomize_Button_Click"/>
-		<Label Content="Options" HorizontalAlignment="Left" Margin="17,250,0,0" VerticalAlignment="Top" FontSize="18"/>
-		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="3" Margin="23,279,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
-		<Label Content="Shuffle Multiplier:" HorizontalAlignment="Left" Margin="22,290,0,0" VerticalAlignment="Top"/>
-		<TextBox x:Name="multiplier_textbox" HorizontalAlignment="Left"  Margin="130,295,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" PreviewTextInput="Multiplier_textbox_PreviewTextInput" MaxLength="5" />
-		<CheckBox x:Name="stretch_Checkbox" Content="Stretch/Compress sprites if needed (Mixing)" HorizontalAlignment="Left" Margin="190,295,0,0" VerticalAlignment="Top" IsChecked="False"/>
-		<Label Content="Folder options" HorizontalAlignment="Left" Margin="17,330,0,0" VerticalAlignment="Top" FontSize="18"/>
-		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="2" Margin="23,361,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
-		<Label Content="Percentage of self mixing" HorizontalAlignment="Left" Margin="22,375,0,0" VerticalAlignment="Top"/>
-		<Slider x:Name="ratio_Slider" HorizontalAlignment="Left" Margin="25,400,0,0" VerticalAlignment="Top" Width="188" Maximum="100" IsSnapToTickEnabled="True"/>
-		<Label Content="{Binding ElementName=ratio_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="100,418,0,0" VerticalAlignment="Top"/>
+		<Label Content="Options" HorizontalAlignment="Left" Margin="17,361,0,0" VerticalAlignment="Top" FontSize="18"/>
+		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="3" Margin="23,390,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
+		<Label Content="Shuffle Multiplier:" HorizontalAlignment="Left" Margin="22,401,0,0" VerticalAlignment="Top"/>
+		<TextBox x:Name="multiplier_textbox" HorizontalAlignment="Left"  Margin="130,406,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" PreviewTextInput="Multiplier_textbox_PreviewTextInput" MaxLength="5" />
+		<CheckBox x:Name="stretch_Checkbox" Content="Stretch/Compress sprites if needed (Mixing)" HorizontalAlignment="Left" Margin="190,406,0,0" VerticalAlignment="Top" IsChecked="False"/>
+		<Label Content="Folder options" HorizontalAlignment="Left" Margin="17,441,0,0" VerticalAlignment="Top" FontSize="18"/>
+		<Rectangle Fill="Black" HorizontalAlignment="Left" Height="2" Margin="23,472,0,0" Stroke="Black" VerticalAlignment="Top" Width="477"/>
+		<Label Content="Percentage of self mixing" HorizontalAlignment="Left" Margin="22,486,0,0" VerticalAlignment="Top"/>
+		<Slider x:Name="ratio_Slider" HorizontalAlignment="Left" Margin="25,511,0,0" VerticalAlignment="Top" Width="188" Maximum="100" IsSnapToTickEnabled="True"/>
+		<Label Content="{Binding ElementName=ratio_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="100,529,0,0" VerticalAlignment="Top"/>
+		<CheckBox x:Name="use_PNGs" Content="Allow .png files" HorizontalAlignment="Left" Margin="250,493,0,0" VerticalAlignment="Top" IsChecked="False"/>
+		<Label Content="PNG textures size:" HorizontalAlignment="Left" Margin="247,511,0,0" VerticalAlignment="Top"/>
+		<TextBox x:Name="PNG_size" HorizontalAlignment="Left"  Margin="357,515,0,0" TextWrapping="Wrap" Text="32" VerticalAlignment="Top" PreviewTextInput="Multiplier_textbox_PreviewTextInput" MaxLength="5" Width="30" />
+		<RadioButton x:Name="multiple_folders" Content="Overwrite from different Folder" HorizontalAlignment="Left" Margin="20,261,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center"/>
+		<TextBox x:Name="FolderAPath_Box" HorizontalAlignment="Left" Margin="20,286,0,0" TextWrapping="Wrap" Text="Source Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<Button x:Name="SelectFolderA_Button" Content="..." HorizontalAlignment="Left" Margin="455,286,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolderA_Button_Click"/>
+		<TextBox x:Name="FolderBPath_Box" HorizontalAlignment="Left" Margin="20,321,0,0" TextWrapping="Wrap" Text="Target Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<Button x:Name="SelectFolderB_Button" Content="..." HorizontalAlignment="Left" Margin="455,321,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolderB_Button_Click"/>
 	</Grid>
 </Window>
