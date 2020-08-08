@@ -57,7 +57,14 @@ namespace DMIRandomizer
                 {
                     if (ParseOptions())
                     {
-                        RandomizeDMI(DMIPath_Box.Text);
+                        try
+                        {
+                            RandomizeDMI(DMIPath_Box.Text);
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.ToString());
+                        }
                     }
 
                 }
@@ -71,7 +78,14 @@ namespace DMIRandomizer
                 {
                     if (ParseOptions())
                     {
-                        RandomizeDMI(sourceDMIPath_Box.Text, targetDMIPath_Box.Text);
+                        try
+                        {
+                            RandomizeDMI(sourceDMIPath_Box.Text, targetDMIPath_Box.Text);
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.ToString());
+                        }
                     }
                 }
             }
@@ -84,7 +98,14 @@ namespace DMIRandomizer
                 {
                     if (ParseOptions())
                     {
-                        RandomizeFolder(FolderPath_Box.Text);
+                        try
+                        {
+                            RandomizeFolder(FolderPath_Box.Text);
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.ToString());
+                        }
                     }
                 }
 
@@ -97,7 +118,14 @@ namespace DMIRandomizer
                 {
                     if (ParseOptions())
                     {
-                        RandomizeFolder(FolderAPath_Box.Text, FolderBPath_Box.Text);
+                        try
+                        {
+                            RandomizeFolder(FolderAPath_Box.Text, FolderBPath_Box.Text);
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.ToString());
+                        }
                     }
                 }
             }

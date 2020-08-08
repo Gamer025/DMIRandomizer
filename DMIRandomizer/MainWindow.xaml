@@ -9,15 +9,15 @@
 		ResizeMode="NoResize">
 	<Grid>
 		<RadioButton x:Name="singleFile" Content="Single DMI file" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center" IsChecked="True"/>
-		<TextBox x:Name="DMIPath_Box" HorizontalAlignment="Left" Margin="20,40,0,0" TextWrapping="Wrap" Text="DMIFile" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<TextBox x:Name="DMIPath_Box" HorizontalAlignment="Left" Margin="20,40,0,0" TextWrapping="Wrap" Text="DMIFile" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" />
 		<Button x:Name="SelectFile_Button" Content="..." HorizontalAlignment="Left" Margin="455,40,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFile_Button_Click" />
 		<RadioButton x:Name="combineDMI" Content="Mix DMI in different DMI" HorizontalAlignment="Left" Margin="20,90,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center" IsChecked="False"/>
-		<TextBox x:Name="sourceDMIPath_Box" HorizontalAlignment="Left" Margin="20,120,0,0" TextWrapping="Wrap" Text="SourceFile" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<TextBox x:Name="sourceDMIPath_Box" HorizontalAlignment="Left" Margin="20,120,0,0" TextWrapping="Wrap" Text="SourceFile" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" />
 		<Button x:Name="SelectSourceFile_Button" Content="..." HorizontalAlignment="Left" Margin="455,120,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectSourceFile_Button_Click"  />
-		<TextBox x:Name="targetDMIPath_Box" HorizontalAlignment="Left" Margin="20,160,0,0" TextWrapping="Wrap" Text="TargetFile" VerticalAlignment="Top" Width="430"  Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<TextBox x:Name="targetDMIPath_Box" HorizontalAlignment="Left" Margin="20,160,0,0" TextWrapping="Wrap" Text="TargetFile" VerticalAlignment="Top" Width="430"  Height="30" FontSize="20"  VerticalContentAlignment="Center" />
 		<Button x:Name="SelectTargetFile_Button" Content="..." HorizontalAlignment="Left" Margin="455,160,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectTargetFile_Button_Click"/>
 		<RadioButton x:Name="multipleFiles" Content="Multiple DMI files in folder" HorizontalAlignment="Left" Margin="20,200,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center"/>
-		<TextBox x:Name="FolderPath_Box" HorizontalAlignment="Left" Margin="20,225,0,0" TextWrapping="Wrap" Text="Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<TextBox x:Name="FolderPath_Box" HorizontalAlignment="Left" Margin="20,225,0,0" TextWrapping="Wrap" Text="Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" />
 		<Button x:Name="SelectFolder_Button" Content="..." HorizontalAlignment="Left" Margin="455,225,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolder_Button_Click"/>
 		<Button x:Name="Randomize_Button" Content="Randomize!" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="36" FontWeight="Bold" Click="Randomize_Button_Click"/>
 		<Label Content="Options" HorizontalAlignment="Left" Margin="17,361,0,0" VerticalAlignment="Top" FontSize="18"/>
@@ -34,9 +34,9 @@
 		<Label Content="PNG textures size:" HorizontalAlignment="Left" Margin="247,511,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="PNG_size" HorizontalAlignment="Left"  Margin="357,515,0,0" TextWrapping="Wrap" Text="32" VerticalAlignment="Top" PreviewTextInput="Multiplier_textbox_PreviewTextInput" MaxLength="5" Width="30" />
 		<RadioButton x:Name="multiple_folders" Content="Overwrite from different Folder" HorizontalAlignment="Left" Margin="20,261,0,0" VerticalAlignment="Top" GroupName="FileSelect" FontSize="20" VerticalContentAlignment="Center"/>
-		<TextBox x:Name="FolderAPath_Box" HorizontalAlignment="Left" Margin="20,286,0,0" TextWrapping="Wrap" Text="Source Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<TextBox x:Name="FolderAPath_Box" HorizontalAlignment="Left" Margin="20,286,0,0" TextWrapping="Wrap" Text="Source Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" />
 		<Button x:Name="SelectFolderA_Button" Content="..." HorizontalAlignment="Left" Margin="455,286,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolderA_Button_Click"/>
-		<TextBox x:Name="FolderBPath_Box" HorizontalAlignment="Left" Margin="20,321,0,0" TextWrapping="Wrap" Text="Target Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" IsEnabled="False"/>
+		<TextBox x:Name="FolderBPath_Box" HorizontalAlignment="Left" Margin="20,321,0,0" TextWrapping="Wrap" Text="Target Folder" VerticalAlignment="Top" Width="430" Height="30" FontSize="20"  VerticalContentAlignment="Center" />
 		<Button x:Name="SelectFolderB_Button" Content="..." HorizontalAlignment="Left" Margin="455,321,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="SelectFolderB_Button_Click"/>
 	</Grid>
 </Window>
